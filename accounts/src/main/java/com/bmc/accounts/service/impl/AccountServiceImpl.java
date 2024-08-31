@@ -4,6 +4,7 @@ import com.bmc.accounts.Constants.AccountsConstants;
 import com.bmc.accounts.dto.CustomerDto;
 import com.bmc.accounts.entity.Accounts;
 import com.bmc.accounts.entity.Customer;
+import com.bmc.accounts.exception.CustomerAlreadyException;
 import com.bmc.accounts.mapper.CustomerMapper;
 import com.bmc.accounts.repository.AccountsRepository;
 import com.bmc.accounts.repository.CustomerRepository;
@@ -11,6 +12,7 @@ import com.bmc.accounts.service.AccountService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -23,6 +25,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void createAccount(CustomerDto customerDto) {
         Customer customer = CustomerMapper.mapToCustomer(customerDto, new Customer());
+        Optional<Customer> optionalCustomer = customerRepository.findByMobileNumber(customer.getMobileNumber());
+        if (optionalCustomer.isPresent()){
+            throw new CustomerAlreadyException("Customer's already registered with given mobileNumber: " +
+                    customerDto.getMobileNumber());
+        }
         Customer savedCustomer = customerRepository.save(customer);
         accountsRepository.save(createNewAccount(savedCustomer));
     }
