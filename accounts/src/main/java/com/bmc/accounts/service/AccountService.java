@@ -2,7 +2,7 @@ package com.bmc.accounts.service;
 
 import com.bmc.accounts.dto.CustomerDto;
 
-public interface IAccountService {
+public interface AccountService {
 
     void createAccount(CustomerDto customerDto);
 }
