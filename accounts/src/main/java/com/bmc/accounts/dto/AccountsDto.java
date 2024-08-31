@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class AccountsDto {
 
-    private Long customerId;
+    private String branchAddress;
 
     private String accountType;
 
-    private String mobileNumber;
+    private Long accountNumber;
 }
