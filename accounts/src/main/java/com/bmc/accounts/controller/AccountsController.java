@@ -4,22 +4,25 @@ import com.bmc.accounts.Constants.AccountsConstants;
 import com.bmc.accounts.dto.CustomerDto;
 import com.bmc.accounts.dto.ResponseDto;
 import com.bmc.accounts.service.AccountService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
 @AllArgsConstructor
+@Validated
 public class AccountsController {
 
     private AccountService accountsService;
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseDto> createAccount(@RequestBody CustomerDto customerDto) {
+    public ResponseEntity<ResponseDto> createAccount(@Valid @RequestBody CustomerDto customerDto) {
         accountsService.createAccount(customerDto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -27,12 +30,14 @@ public class AccountsController {
     }
 
     @GetMapping("/fetch")
-    public ResponseEntity<CustomerDto> fetchAccountsDetails(@RequestParam String mobileNo) {
+    public ResponseEntity<CustomerDto> fetchAccountsDetails(
+            @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
+            @RequestParam String mobileNo) {
         return ResponseEntity.status(HttpStatus.OK).body(accountsService.fetchAccount(mobileNo));
     }
 
     @PutMapping("/update")
-    public ResponseEntity<ResponseDto> updateAccountDetails(@RequestBody CustomerDto customerDto) {
+    public ResponseEntity<ResponseDto> updateAccountDetails(@Valid @RequestBody CustomerDto customerDto) {
         boolean isUpdated = accountsService.updateAccount(customerDto);
         if (isUpdated)
             return ResponseEntity
