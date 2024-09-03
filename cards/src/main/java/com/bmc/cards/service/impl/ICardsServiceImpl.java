@@ -19,11 +19,12 @@ import java.util.Random;
 public class ICardsServiceImpl implements ICardsService {
 
     private final CardsRepository cardsRepository;
+
     @Override
     public void createCard(String mobileNumber) {
-        Optional<Cards> optionalCards= cardsRepository.findByMobileNumber(mobileNumber);
-        if(optionalCards.isPresent()){
-            throw new CardAlreadyExistException("Card already registered with given mobileNumber "+mobileNumber);
+        Optional<Cards> optionalCards = cardsRepository.findByMobileNumber(mobileNumber);
+        if (optionalCards.isPresent()) {
+            throw new CardAlreadyExistException("Card already registered with given mobileNumber " + mobileNumber);
         }
         cardsRepository.save(createNewCard(mobileNumber));
     }
@@ -34,6 +35,15 @@ public class ICardsServiceImpl implements ICardsService {
                 () -> new ResourceNotFoundException("Card", "mobileNumber", mobileNumber)
         );
         return CardsMapper.mapToCardsDto(cards, new CardsDto());
+    }
+
+    @Override
+    public boolean updateCard(CardsDto cardsDto) {
+        Cards cards = cardsRepository.findByCardNumber(cardsDto.getCardNumber()).orElseThrow(
+                () -> new ResourceNotFoundException("Card", "CardNumber", cardsDto.getCardNumber()));
+        CardsMapper.mapToCards(cardsDto, cards);
+        cardsRepository.save(cards);
+        return true;
     }
 
     private Cards createNewCard(String mobileNumber) {
@@ -47,4 +57,5 @@ public class ICardsServiceImpl implements ICardsService {
         newCard.setAvailableAmount(CardsConstants.NEW_CARD_LIMIT);
         return newCard;
     }
+
 }
