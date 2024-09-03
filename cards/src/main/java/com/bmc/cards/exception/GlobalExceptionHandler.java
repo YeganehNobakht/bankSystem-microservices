@@ -1,6 +1,6 @@
-package com.bmc.accounts.exception;
+package com.bmc.cards.exception;
 
-import com.bmc.accounts.dto.ErrorResponseDto;
+import com.bmc.cards.dto.ErrorResponseDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -51,9 +51,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     }
 
-    @ExceptionHandler(CustomerAlreadyException.class)
+    @ExceptionHandler(CardAlreadyExistException.class)
     public ResponseEntity<ErrorResponseDto> handleCustomerAlreadyExistsException(
-            CustomerAlreadyException e, WebRequest webRequest) {
+            CardAlreadyExistException e, WebRequest webRequest) {
         return new ResponseEntity<>(
                 ErrorResponseDto.builder()
                         .apiPath(webRequest.getDescription(false))

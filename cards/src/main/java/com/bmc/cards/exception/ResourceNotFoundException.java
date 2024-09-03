@@ -1,4 +1,4 @@
-package com.bmc.accounts.exception;
+package com.bmc.cards.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message, String fieldName, String fieldValue) {

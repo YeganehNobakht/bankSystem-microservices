@@ -1,11 +1,11 @@
-package com.bmc.accounts.exception;
+package com.bmc.cards.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-public class CustomerAlreadyException extends RuntimeException{
-    public CustomerAlreadyException(String message) {
+public class CardAlreadyExistException extends RuntimeException{
+    public CardAlreadyExistException(String message) {
         super(message);
     }
 }
