@@ -1,8 +1,11 @@
 package com.bmc.cards.service.impl;
 
 import com.bmc.cards.constants.CardsConstants;
+import com.bmc.cards.dto.CardsDto;
 import com.bmc.cards.entity.Cards;
 import com.bmc.cards.exception.CardAlreadyExistException;
+import com.bmc.cards.exception.ResourceNotFoundException;
+import com.bmc.cards.mapper.CardsMapper;
 import com.bmc.cards.repository.CardsRepository;
 import com.bmc.cards.service.ICardsService;
 import lombok.AllArgsConstructor;
@@ -23,6 +26,14 @@ public class ICardsServiceImpl implements ICardsService {
             throw new CardAlreadyExistException("Card already registered with given mobileNumber "+mobileNumber);
         }
         cardsRepository.save(createNewCard(mobileNumber));
+    }
+
+    @Override
+    public CardsDto fetchCard(String mobileNumber) {
+        Cards cards = cardsRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                () -> new ResourceNotFoundException("Card", "mobileNumber", mobileNumber)
+        );
+        return CardsMapper.mapToCardsDto(cards, new CardsDto());
     }
 
     private Cards createNewCard(String mobileNumber) {
