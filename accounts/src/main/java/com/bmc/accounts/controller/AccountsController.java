@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import jakarta.validation.constraints.Pattern;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
-@AllArgsConstructor
 @Validated
 @Tag(
         name = "CRUD REST APIs for accounts",
@@ -30,7 +30,14 @@ import org.springframework.web.bind.annotation.*;
 )
 public class AccountsController {
 
-    private AccountService accountsService;
+    private final AccountService accountsService;
+
+    @Value("${build.version}")
+    private String buildVersion;
+
+    public AccountsController(AccountService accountsService) {
+        this.accountsService = accountsService;
+    }
 
     @Operation(
             summary = "Create Account REST APIs",
@@ -59,7 +66,6 @@ public class AccountsController {
     }
 
 
-
     @Operation(
             summary = "Fetch Account Details REST API",
             description = "REST API to fetch Customer &  Account details based on a mobile number"
@@ -80,7 +86,7 @@ public class AccountsController {
     )
     @GetMapping("/fetch")
     public ResponseEntity<CustomerDto> fetchAccountsDetails(
-            @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
+            @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
             @RequestParam String mobileNo) {
         return ResponseEntity.status(HttpStatus.OK).body(accountsService.fetchAccount(mobileNo));
     }
@@ -146,17 +152,40 @@ public class AccountsController {
     )
     @DeleteMapping("/delete")
     public ResponseEntity<ResponseDto> deleteAccountDetails(@RequestParam
-                                                            @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
+                                                            @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
                                                             String mobileNumber) {
         boolean isDeleted = accountsService.deleteAccount(mobileNumber);
-        if(isDeleted) {
+        if (isDeleted) {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(new ResponseDto(AccountsConstants.STATUS_200, AccountsConstants.MESSAGE_200));
-        }else{
+        } else {
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseDto(AccountsConstants.STATUS_417, AccountsConstants.MESSAGE_417_DELETE));
         }
+    }
+
+    @Operation(
+            summary = "Get build information",
+            description = "Get build information that is deployed into customer account"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    }
+    )
+    @GetMapping("/build-info")
+    public ResponseEntity<String> getBuildInfo() {
+        return ResponseEntity.status(HttpStatus.OK).body(buildVersion);
     }
 }
