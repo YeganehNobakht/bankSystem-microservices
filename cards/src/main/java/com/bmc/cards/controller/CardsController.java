@@ -35,7 +35,7 @@ public class CardsController {
 
     private final CardsContactInfoDto cardsContactInfoDto;
 
-    @Value("build.version")
+    @Value("${build.version}")
     private String buildVersion;
 
     public CardsController(ICardsService iCardsService, CardsContactInfoDto cardsContactInfoDto) {
