@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: "configserver"
+#  ?native? profile does not use Git but loads the config files
+#    from the local classpath or file system
+  profiles:
+    active: native
+
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: "classpath:/config"
+
+
+server:
+  port: 8071

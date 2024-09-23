@@ -1,0 +1,13 @@
+build:
+  version: "3.0"
+
+accounts:
+  message: "Welcome to Bank Accounts related QA APIs "
+  contactDetails:
+    name: "Masi - Developer"
+    email: "masi@gmail.com"
+  onCallSupport:
+    - 123456
+    - 789654
+
+

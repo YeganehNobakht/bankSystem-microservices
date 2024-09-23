@@ -1,0 +1,13 @@
+build:
+  version: "2.0"
+
+loans:
+  message: "Welcome to Bank loans related Local APIs "
+  contactDetails:
+    name: "Masi - Developer"
+    email: "masi@gmail.com"
+  onCallSupport:
+    - 123456
+    - 789654
+
+
