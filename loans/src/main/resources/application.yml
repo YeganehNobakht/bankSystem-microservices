@@ -16,3 +16,26 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+  config:
+    import:
+      - "application-prod.yml"
+      - "application-qa.yml"
+  profiles:
+    active:
+      - "qa"
+
+
+build:
+  version: "2.0"
+
+cards:
+  message: "Welcome to Bank loans related Local APIs "
+  contactDetails:
+    name: "Masi - Developer"
+    email: "masi@gmail.com"
+  onCallSupport:
+    - 123456
+    - 789654
+
+
