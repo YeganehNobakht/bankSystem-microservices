@@ -16,9 +16,25 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  config:
+    import:
+      - application-qa.yml
+      - application-prod.yml
+  profiles:
+    active:
+        - qa
+
 
 build:
-    version:"1.0"
+  version: "3.0"
 
+accounts:
+  message: "Welcome to Bank Accounts related QA APIs "
+  contactDetails:
+    name: "Masi Yeganeh - QA Lead"
+    email: "m.yeganehnobakht@gmail.com"
+  onCallSupport:
+    - 123456
+    - 789654
 
 

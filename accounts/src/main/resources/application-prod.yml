@@ -1,0 +1,17 @@
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+
+
+build:
+  version: "2.0"
+
+accounts:
+  message: "Welcome to Bank Accounts related QA APIs "
+  contactDetails:
+    name: "Masi Yeganeh - QA Lead"
+    email: "m.yeganehnobakht@gmail.com"
+  onCallSupport:
+    - 123456
+    - 789654
