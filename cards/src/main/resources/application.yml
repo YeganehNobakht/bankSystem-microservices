@@ -3,6 +3,8 @@ server:
 spring:
   application:
     name: cards
+  profiles:
+    active: "prod"
   datasource:
     url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
@@ -17,23 +19,9 @@ spring:
       ddl-auto: create
     show-sql: true
   config:
-    import:
-      - "application-prod.yml"
-      - "application-qa.yml"
-  profiles:
-    active:
-      - "qa"
+    #    "optional" keyword: It tells to this service if it is not
+    #  able to connect to config server, it can still continue
+    #  run this service.
+    import: "optional:configserver:http://localhost:8071/"
 
 
-
-build:
-  version: "2.0"
-
-cards:
-  message: "Welcome to Bank cards related Local APIs "
-  contactDetails:
-    name: "Masi - Developer"
-    email: "masi@gmail.com"
-  onCallSupport:
-    - 123456
-    - 789654
