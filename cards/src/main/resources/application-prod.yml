@@ -1,17 +1,18 @@
 spring:
   config:
     activate:
-      on-profile: "qa"
-
+      on-profile: "prod"
 
 build:
-  version: "2.0"
+  version: "3.0"
 
-accounts:
-  message: "Welcome to Bank Accounts related QA APIs "
+cards:
+  message: "Welcome to Bank cards related Local APIs "
   contactDetails:
     name: "Masi - Developer"
     email: "masi@gmail.com"
   onCallSupport:
     - 123456
     - 789654
+
+

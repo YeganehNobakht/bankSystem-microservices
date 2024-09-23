@@ -18,11 +18,11 @@ spring:
     show-sql: true
   config:
     import:
-      - application-qa.yml
-      - application-prod.yml
+      - "application-qa.yml"
+      - "application-prod.yml"
   profiles:
     active:
-        - qa
+        - "qa"
 
 
 build:
@@ -31,8 +31,8 @@ build:
 accounts:
   message: "Welcome to Bank Accounts related QA APIs "
   contactDetails:
-    name: "Masi Yeganeh - QA Lead"
-    email: "m.yeganehnobakht@gmail.com"
+    name: "Masi - Developer"
+    email: "masi@gmail.com"
   onCallSupport:
     - 123456
     - 789654
