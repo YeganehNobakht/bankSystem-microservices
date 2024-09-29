@@ -24,6 +24,12 @@ spring:
 #  run this service.
     import: "optional:configserver:http://localhost:8071/"
 
+  rabbitmq:
+    host: mybroker.com
+    port: 5672
+    username: user
+    password: secret
+
 
 #  Enable All Endpoints in Spring Boot Actuator
 management:
