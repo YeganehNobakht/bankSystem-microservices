@@ -24,4 +24,9 @@ spring:
     #  run this service.
     import: "optional:configserver:http://localhost:8071/"
 
-
+#  Enable All Endpoints in Spring Boot Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
