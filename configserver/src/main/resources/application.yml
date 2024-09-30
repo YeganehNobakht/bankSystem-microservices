@@ -12,11 +12,12 @@ spring:
         native:
           search-locations: "classpath:/config"
 
-  rabbitmq:
-    host: mybroker.com
-    port: 5672
-    username: user
-    password: secret
+#To prevent building rabbitMq container because of the OS speed
+#  rabbitmq:
+#    host: mybroker.com
+#    port: 5672
+#    username: user
+#    password: secret
 
 
 server:
