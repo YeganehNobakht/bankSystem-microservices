@@ -57,7 +57,7 @@ public class AccountServiceImpl implements AccountService {
                 () -> new ResourceNotFoundException("Customer", "customerId", customer.getCustomerId().toString())
         );
         CustomerDto customerDto = CustomerMapper.mapToCustomerDto(customer, new CustomerDto());
-        customerDto.setAccountsDto(AccountsMapper.mapToAccounts(accounts, new AccountsDto()));
+        customerDto.setAccountsDto(AccountsMapper.mapToAccountsDto(accounts, new AccountsDto()));
         return customerDto;
     }
 
