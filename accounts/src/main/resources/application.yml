@@ -58,7 +58,7 @@ endpoints:
 eureka:
   instance:
 #    This service will register with eureka server by using the ip address -->
-    prefer-ip-address: true
+    prefer-ip-address: false
   client:
     fetchRegistry: true
     registerWithEureka: true
