@@ -11,27 +11,30 @@ import java.time.LocalDateTime;
 @SpringBootApplication
 public class GatewayserverApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GatewayserverApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(GatewayserverApplication.class, args);
+    }
 
-	@Bean
-	public RouteLocator bankSystemRouteConfig(RouteLocatorBuilder routeLocatorBuilder) {
-		return routeLocatorBuilder.routes()
-				.route(p -> p
-						.path("/banksystem/accounts/**")
-						.filters( f -> f.rewritePath("/banksystem/accounts/(?<segment>.*)","/${segment}"))
-						.uri("lb://ACCOUNTS"))
-				.route(p -> p
-						.path("/banksystem/loans/**")
-						.filters( f -> f.rewritePath("/banksystem/loans/(?<segment>.*)","/${segment}"))
-						.uri("lb://LOANS"))
-				.route(p -> p
-						.path("/banksystem/cards/**")
-						.filters( f -> f.rewritePath("/banksystem/cards/(?<segment>.*)","/${segment}"))
-						.uri("lb://CARDS")).build();
+    @Bean
+    public RouteLocator bankSystemRouteConfig(RouteLocatorBuilder routeLocatorBuilder) {
+        return routeLocatorBuilder.routes()
+                .route(p -> p
+                        .path("/banksystem/accounts/**")
+                        .filters(f -> f.rewritePath("/banksystem/accounts/(?<segment>.*)", "/${segment}")
+                                .addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
+                        .uri("lb://ACCOUNTS"))
+                .route(p -> p
+                        .path("/banksystem/loans/**")
+                        .filters(f -> f.rewritePath("/banksystem/loans/(?<segment>.*)", "/${segment}")
+                                .addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
+                        .uri("lb://LOANS"))
+                .route(p -> p
+                        .path("/banksystem/cards/**")
+                        .filters(f -> f.rewritePath("/banksystem/cards/(?<segment>.*)", "/${segment}")
+                                .addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
+                        .uri("lb://CARDS")).build();
 
 
-	}
+    }
 
 }

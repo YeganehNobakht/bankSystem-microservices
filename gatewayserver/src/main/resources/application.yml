@@ -7,7 +7,8 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: true
+#          In order to use Route locator only -->
+          enabled: false
           lowerCaseServiceId: true
 
 #  Enable All Endpoints in Spring Boot Actuator
