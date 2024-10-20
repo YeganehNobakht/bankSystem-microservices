@@ -70,3 +70,9 @@ info:
     name: "cards"
     description: "Bank System cards Application"
     version: "1.0.0"
+
+logging:
+  level:
+    com:
+      bmc:
+        cards: DEBUG

@@ -70,3 +70,9 @@ info:
     name: "loans"
     description: "Bank System loans Application"
     version: "1.0.0"
+
+logging:
+  level:
+    com:
+      bmc:
+        loans: DEBUG
