@@ -31,6 +31,13 @@ spring:
 #  run this service.
     import: "optional:configserver:http://localhost:8071/"
 
+#activing circuit breaker for all openFeign clients inside the accounts-->
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+
+
 #To prevent building rabbitMq container because of the OS speed
 #  rabbitmq:
 #    host: mybroker.com
@@ -39,6 +46,8 @@ spring:
 #    password: secret
 
 #  Enable All Endpoints in Spring Boot Actuator
+
+
 management:
   endpoints:
     web:
@@ -84,3 +93,12 @@ logging:
     com:
       bmc:
         accounts: DEBUG
+
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowSize: 10
+      permittedNumberOfCallsInHalfOpenState: 2
+      failureRateThreshold: 50
+      waitDurationInOpenState: 10000
