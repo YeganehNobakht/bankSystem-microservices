@@ -35,3 +35,15 @@ logging:
     com:
       bmc:
         gatewayserver: DEBUG
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+#      indicates how many requests should be monitored until it change the state of circuit breaker from close to open
+      slidingWindowSize: 10
+      permittedNumberOfCallsInHalfOpenState: 2
+#      at least 50 percent of requests are failed then the circuit breaker can move from open state to close state
+      failureRateThreshold: 50
+#      The circuit breaker pattern is going to wait 10 seconds whenever it tries
+#      to move to half open state and allow the partial traffic.
+      waitDurationInOpenState: 10000
