@@ -10,6 +10,9 @@ spring:
 #          In order to use Route locator only -->
           enabled: false
           lowerCaseServiceId: true
+      httpclient:
+        connect-timeout: 1000
+        response-timeout: 5s
 
 #  Enable All Endpoints in Spring Boot Actuator
 management:
