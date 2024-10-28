@@ -130,8 +130,9 @@ services:
     command: "-config.file=/etc/loki/config.yaml -target=backend -legacy-read-mode=false"
     depends_on:
       - gateway
-    networks:
-      - loki
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
 
 
   gateway:
