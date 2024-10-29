@@ -43,15 +43,15 @@ services:
   alloy:
     image: grafana/alloy:latest
     volumes:
-      - ../observability/alloy/alloy-local-config.yaml:/etc/alloy/config.alloy:ro
+      - ../observability/alloy/alloy-local-config.yaml:/Users/etc/alloy/config.alloy:ro
       - /var/run/docker.sock:/var/run/docker.sock
-    command:  run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
+    command:  run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /Users/etc/alloy/config.alloy
     ports:
       - 12345:12345
     depends_on:
       - gateway
-#    networks:
-#      - msi
+    #    networks:
+    #      - msi
     extends:
       file: common-config.yml
       service: network-deploy-service
@@ -130,6 +130,8 @@ services:
     command: "-config.file=/etc/loki/config.yaml -target=backend -legacy-read-mode=false"
     depends_on:
       - gateway
+    #    networks:
+    #      - msi
     extends:
       file: common-config.yml
       service: network-deploy-service
