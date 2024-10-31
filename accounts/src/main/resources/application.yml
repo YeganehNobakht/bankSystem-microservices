@@ -67,6 +67,10 @@ management:
   info:
     env:
       enabled: true
+#      grouping all metrics related to the accounts microservice under the application name
+  metrics:
+    tags:
+      application: $(spring.application.name)
 
 endpoints:
   shutdown:
