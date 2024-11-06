@@ -95,7 +95,6 @@ services:
       file: common-config.yml
       service: network-deploy-service
 
-
   grafana:
     image: grafana/grafana:latest
     environment:
@@ -108,20 +107,21 @@ services:
       - sh
       - -euc
       - |
-        mkdir -p /etc/grafana/provisioning/datasources
-        cat <<EOF > /etc/grafana/provisioning/datasources/ds.yaml
-        apiVersion: 1
-        datasources:
-          - name: Loki
-            type: loki
-            access: proxy
-            url: http://gateway:3100
-            jsonData:
-              httpHeaderName1: "X-Scope-OrgID"
-            secureJsonData:
-              httpHeaderValue1: "tenant1"
-        EOF
-        /run.sh
+        ##  all commands for making data source is placed in ../observability/grafana/datasource.yml
+        #        mkdir -p /etc/grafana/provisioning/datasources
+        #        cat <<EOF > /etc/grafana/provisioning/datasources/ds.yaml
+        #        apiVersion: 1
+        #        datasources:
+        #          - name: Loki
+        #            type: loki
+        #            access: proxy
+        #            url: http://gateway:3100
+        #            jsonData:
+        #              httpHeaderName1: "X-Scope-OrgID"
+        #            secureJsonData:
+        #              httpHeaderValue1: "tenant1"
+        #        EOF
+          /run.sh
     ports:
       - "3000:3000"
     healthcheck:
@@ -143,8 +143,8 @@ services:
     command: "-config.file=/etc/loki/config.yaml -target=backend -legacy-read-mode=false"
     depends_on:
       - gateway
-#    networks:
-#      - msi
+    #    networks:
+    #      - msi
     extends:
       file: common-config.yml
       service: network-deploy-service
