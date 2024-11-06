@@ -107,21 +107,21 @@ services:
       - sh
       - -euc
       - |
-##  all commands for making data source is placed in ../observability/grafana/datasource.yml
-#        mkdir -p /etc/grafana/provisioning/datasources
-#        cat <<EOF > /etc/grafana/provisioning/datasources/ds.yaml
-#        apiVersion: 1
-#        datasources:
-#          - name: Loki
-#            type: loki
-#            access: proxy
-#            url: http://gateway:3100
-#            jsonData:
-#              httpHeaderName1: "X-Scope-OrgID"
-#            secureJsonData:
-#              httpHeaderValue1: "tenant1"
-#        EOF
-        /run.sh
+        ##  all commands for making data source is placed in ../observability/grafana/datasource.yml
+        #        mkdir -p /etc/grafana/provisioning/datasources
+        #        cat <<EOF > /etc/grafana/provisioning/datasources/ds.yaml
+        #        apiVersion: 1
+        #        datasources:
+        #          - name: Loki
+        #            type: loki
+        #            access: proxy
+        #            url: http://gateway:3100
+        #            jsonData:
+        #              httpHeaderName1: "X-Scope-OrgID"
+        #            secureJsonData:
+        #              httpHeaderValue1: "tenant1"
+        #        EOF
+          /run.sh
     ports:
       - "3000:3000"
     healthcheck:
@@ -225,7 +225,7 @@ services:
 
 
   configserver:
-    image: "behsazandocker/configserver:v3"
+    image: "behsazandocker/configserver:v4"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -240,7 +240,7 @@ services:
       service: microservice-base-config
 
   eurekaserver:
-    image: "behsazandocker/eurekaserver:v2"
+    image: "behsazandocker/eurekaserver:v4"
     container_name: eurekaserver-ms
     ports:
       - "8070:8070"
@@ -260,7 +260,7 @@ services:
       SPRING_APPLICATION_NAME: "eurekaserver"
 
   accounts:
-    image: "behsazandocker/accounts:v3"
+    image: "behsazandocker/accounts:v4"
     container_name: accounts-ms
     ports:
       - "8080:8080"
@@ -281,7 +281,7 @@ services:
       service: microservice-eureka-config
 
   loans:
-    image: "behsazandocker/loans:v3"
+    image: "behsazandocker/loans:v4"
     container_name: loans-ms
     ports:
       - "8090:8090"
@@ -302,7 +302,7 @@ services:
       service: microservice-eureka-config
 
   #  loans1:
-  #    image: "behsazandocker/loans:v3"
+  #    image: "behsazandocker/loans:v4"
   #    container_name: loans-ms1
   #    ports:
   #      - "8091:8090"
@@ -318,7 +318,7 @@ services:
   #      service: microservice-eureka-config
 
   cards:
-    image: "behsazandocker/cards:v3"
+    image: "behsazandocker/cards:v4"
     container_name: cards-ms
     ports:
       - "9000:9000"
@@ -338,7 +338,7 @@ services:
       file: common-config.yml
       service: microservice-eureka-config
   gatewayserver:
-    image: "behsazandocker/gatewayserver:v3"
+    image: "behsazandocker/gatewayserver:v4"
     container_name: gatewayserver-ms
     ports:
       - "8072:8072"
