@@ -96,8 +96,9 @@ public class CardsController {
             @RequestHeader("correlation-id") String correlationId,
             @RequestParam @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
             String mobileNumber) {
-        logger.debug("correlation-id found: {}" , correlationId);
+        logger.debug("fetchCardDetails start");
         CardsDto cardsDto = iCardsService.fetchCard(mobileNumber);
+        logger.debug("fetchCardDetails end");
         return ResponseEntity.status(HttpStatus.OK).body(cardsDto);
     }
 
