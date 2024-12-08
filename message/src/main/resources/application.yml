@@ -14,6 +14,8 @@ spring:
 #          any message comes to this queue destination will be redirected to spring.cloud.function.destination.email|sms
           destination: send-communication
           group: $(spring.application.name)
+        emailsms-out-0:
+          destination: communication-sent
 
   rabbitmq:
     host: localhost
