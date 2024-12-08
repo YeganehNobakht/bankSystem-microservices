@@ -1,0 +1,10 @@
+server:
+  port: 9010
+
+spring:
+  application:
+    name: message
+# invoke both email and sms function as a single logical unit "emailsms"
+  cloud:
+    function:
+      definition: email|sms
